@@ -45,7 +45,6 @@ A RESTful API for a Task Management System built with Laravel, Docker, and MySQL
   - Install Docker Compose: https://docs.docker.com/compose/install/
   - Install Git: https://git-scm.com/downloads
 
----
 
 ### Step 1: Clone the repository:
 
@@ -87,7 +86,14 @@ A RESTful API for a Task Management System built with Laravel, Docker, and MySQL
       DB_PASSWORD=secret
       ```
 
-### Step 3: Build and Start the Docker Containers:
+### Step 3: Apache Configuration
+
+   Set up Apache configuration, copy the example file in `docker/apache` directory:
+   ```bash
+   cp docker/apache/000-default.conf.example docker/apache/000-default.conf
+   ```
+
+### Step 4: Build and Start the Docker Containers:
 
    Run the following commands to build and start the Docker containers:
    ```bash
@@ -95,33 +101,33 @@ A RESTful API for a Task Management System built with Laravel, Docker, and MySQL
    docker-compose up -d
    ```
 
-### Step 4: Install Composer Dependencies:
+### Step 5: Install Composer Dependencies:
 
    Install PHP dependencies inside the `app` container:
    ```bash
    docker-compose exec app composer install
    ```
 
-### Step 5: Generate Application Key:
+### Step 6: Generate Application Key:
 
    Generate a unique application key:
    ```bash
    docker-compose exec app php artisan key:generate
    ```
 
-### Step 6: Run Migrations:
+### Step 7: Run Migrations:
 
    Run migrations for the development database:
    ```bash
    docker-compose exec app php artisan migrate
    ```
    
-   Run migrations for the testing database:
+   Run migrations for the testing database (Optional):
    ```bash
    docker-compose exec app php artisan migrate --env=testing
    ```
 
-### Step 7: Run Seeders (Optional):
+### Step 8: Run Seeders (Optional):
 
    Seed the development database:
    ```bash
@@ -133,14 +139,14 @@ A RESTful API for a Task Management System built with Laravel, Docker, and MySQL
    docker-compose exec app php artisan db:seed --env=testing
    ```
 
-### Step 8: Run Tests:
+### Step 9: Run Tests:
 
    Run PHPUnit tests:
    ```bash
    docker-compose exec app ./vendor/bin/phpunit
    ```
 
-### Step 9: Application Access:
+### Step 10: Application Access:
 
    - Development Laravel App:
      - URL: http://localhost:8080
@@ -149,6 +155,8 @@ A RESTful API for a Task Management System built with Laravel, Docker, and MySQL
      - URL: http://localhost:8081
      - Username: laravel_user
      - Password: secret
+
+---
 
 ## API Endpoints
 Tasks:
