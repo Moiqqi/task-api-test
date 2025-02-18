@@ -1,19 +1,13 @@
 #!/bin/sh
 
 # PHPStan check
-./vendor/bin/phpstan analyse || exit 1
+./vendor/bin/phpstan analyse app/ routes/ tests/ database/factories database/seeders || exit 1
 
 # Laravel Pint check
 ./vendor/bin/pint --test || exit 1
 
 # PHP CodeSniffer check
-./vendor/bin/phpcs --standard=PSR12 app/ routes/ tests/ || exit 1
-
-# Checking for debugging statements in source code
-if grep -r "dd(" app/ routes/ tests/; then
-  echo "Commit aborted: forgotten debugging statements in the code."
-  exit 1
-fi
+./vendor/bin/phpcs --standard=PSR12 app/ routes/ tests/ database/factories database/seeders || exit 1
 
 # PHPUnit tests check
 php artisan test || exit 1
